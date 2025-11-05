@@ -5,10 +5,12 @@
         "module": "nodenext",
         "target": "es2022",
         "baseUrl": "./src/",
+        "types": ["node"],
         "moduleResolution": "nodenext",
         "moduleSuffixes": [
             ""
         ],
+        "esModuleInterop": true,
         "removeComments": true,
         "forceConsistentCasingInFileNames": true,
         "sourceMap": true,
@@ -24,7 +26,6 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        // "noPropertyAccessFromIndexSignature": true,
         "strict": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
@@ -39,9 +40,11 @@
         "pretty": true
     },
     "include": [
-        "./src/**/*.ts"
+        "./src/server/**/*.ts",
+        "./src/server/**/*.json"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ],
 }

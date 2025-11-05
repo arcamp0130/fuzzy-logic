@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
         "rootDir": "./src/public",
-        "outDir": "./dist/public",
         "module": "esnext",
         "target": "esnext",
         "baseUrl": "./src/",
         "moduleResolution": "bundler",
         "noEmit": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "lib": [
             "ESNext",
             "DOM",
@@ -29,7 +30,6 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        // "noPropertyAccessFromIndexSignature": true,
         "strict": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
@@ -44,9 +44,11 @@
         "pretty": true
     },
     "include": [
-        "./src/**/*.ts"
+        "./src/public/**/*.ts",
+        "./src/public/**/*.js",
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ],
 }

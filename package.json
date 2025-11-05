@@ -1,0 +1,28 @@
+{
+  "name": "fuzzy-logic",
+  "version": "0.0.1",
+  "description": "Implementation of fuzzy logic to take decisions based on fuzzy inference.",
+  "keywords": [
+    "fuzzy",
+    "inference",
+    "fuzzy-logic"
+  ],
+  "homepage": "https://github.com/arcamp0130/fuzzy-logic#readme",
+  "bugs": {
+    "url": "https://github.com/arcamp0130/fuzzy-logic/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcamp0130/fuzzy-logic.git"
+  },
+  "license": "ISC",
+  "author": "Arath Campos",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}

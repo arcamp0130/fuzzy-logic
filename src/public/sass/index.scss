@@ -1,0 +1,9 @@
+@use 'color-scheme';
+
+* {
+    color: color-scheme.$foreground-color
+}
+
+body {
+    background-color: color-scheme.$primary-color
+}

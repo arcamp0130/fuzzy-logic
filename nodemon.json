@@ -1,0 +1,7 @@
+{
+    "watch": ["./src/server/"],
+    "ext": "ts",
+    "execMap": {
+        "ts": "ts-node --project ./tsconfig.server.json --transpile-only --esm"
+    }
+}

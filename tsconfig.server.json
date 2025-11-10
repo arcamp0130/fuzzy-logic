@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src/server",
+        "outDir": "./dist/server",
+        "module": "nodenext",
+        "target": "es2022",
+        "baseUrl": "./src/",
+        "types": ["node"],
+        "moduleResolution": "nodenext",
+        "moduleSuffixes": [
+            ""
+        ],
+        "esModuleInterop": true,
+        "removeComments": true,
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "allowUnreachableCode": false,
+        "noImplicitReturns": true,
+        "noImplicitOverride": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "strict": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "alwaysStrict": true,
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true,
+        "noUncheckedSideEffectImports": true,
+        "useDefineForClassFields": true,
+        "moduleDetection": "force",
+        "skipLibCheck": true,
+        "pretty": true
+    },
+    "include": [
+        "./src/server/**/*.ts",
+        "./src/server/**/*.json"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+}

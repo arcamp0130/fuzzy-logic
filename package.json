@@ -24,10 +24,10 @@
     "build:server": "tsc -p tsconfig.server.json",
     "build:client": "vite build",
     "build": "npm run build:server && npm run build:client",
-    "dev:server": "nodemon --config nodemon.json ./src/server/index.ts",
+    "dev:server": "nodemon --exec \"node --env-file=./.env\" --config nodemon.json ./src/server/index.ts",
     "dev:client": "vite",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "start": "node dist/server/index.js"
+    "start": "node --env-file=./.env dist/server/index.js"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

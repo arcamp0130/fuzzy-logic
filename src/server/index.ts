@@ -1,9 +1,5 @@
 import express, { Router } from "express"
-
-// TODO: import from .env
-const PORT = 3030 
-const ENVIRONMENT =  "development"
-// end TODO
+import { PORT, ENVIRONMENT } from "./secrets.ts"
 
 const app = express()
 const router = Router()

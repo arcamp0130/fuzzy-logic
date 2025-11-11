@@ -32,6 +32,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "es6-fuzz": "^6.0.9",
     "express": "^5.1.0",
     "vite": "^7.1.12"
   },

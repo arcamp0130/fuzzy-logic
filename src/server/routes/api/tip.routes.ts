@@ -1,20 +1,15 @@
-import e, { Router } from 'express'
+import { Router } from 'express'
+import { controllers } from '../../controllers/index.controller.ts'
 
 const router: Router = Router()
 
 /// GET -> /api/tip
-router.get("/", (_: e.Request, res: e.Response): void => {
-    res.status(200).send("Tip API. Nothing to see here.")
-})
+router.get("/", controllers.api.tip.home)
 
 /// POST -> /api/tip/calculate
-router.post("/calculate", (req: e.Request, res: e.Response): void => {
-    res.status(200).send("Calculating tip!")
-})
+router.post("/calculate", controllers.api.tip.calculateTip)
 
 /// GET -> /api/tip/rules
-router.get("/rules", (_: e.Request, res: e.Response): void => {
-    res.status(200).send("Retrieving fuzzy rules!")
-})
+router.get("/rules", controllers.api.tip.getRules)
 
 export default router

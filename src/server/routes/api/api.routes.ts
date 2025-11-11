@@ -1,17 +1,14 @@
-import e, { Router } from 'express'
+import { Router } from 'express'
+import { controllers } from '../../controllers/index.controller.ts'
 import tipRoutes from './tip.routes.ts'
 
 const router: Router = Router()
 
-/// GET -> /api
-router.get("/", (_: e.Request, res: e.Response): void => {
-    res.status(200).send("API home. Nothing to see here.")
-})
+/// GET -> /api 
+router.get("/", controllers.api.home)
 
 /// GET -> /api/health
-router.get("/health", (_: e.Request, res: e.Response): void => {
-    res.status(200).send("API ready to serve.")
-})
+router.get("/health", controllers.api.checkHealth)
 
 router.use("/tip", tipRoutes)
 

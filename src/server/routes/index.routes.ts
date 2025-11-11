@@ -1,12 +1,11 @@
-import e, { Router } from 'express'
+import { Router } from 'express'
+import { controllers } from '../controllers/index.controller.ts'
 import apiRoutes from './api/api.routes.ts'
 
 const router: Router = Router()
 
 /// GET -> /
-router.get("/", (_: e.Request, res: e.Response) => {
-    res.status(200).send("Hello from Express and TS!")
-})
+router.get("/", controllers.home)
 
 router.use("/api", apiRoutes)
 

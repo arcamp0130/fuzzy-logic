@@ -1,4 +1,5 @@
 import type { FuzzyRule, MembershipFunc, Quality } from "../types/fuzzy.types.ts"
+import { FuzzyFunction } from "es6-fuzz/lib/curve/fuzzy-function.js"
 import shapes from "../components/fuzzy.shapes.ts"
 
 export class FuzzyTip {
@@ -40,6 +41,18 @@ export class FuzzyTip {
     public calculate(foodQuality: number, serviceQuality: number): number {
         let percentage = 15.7 // Mock
 
+        const fuzzyFood: Record<Quality, number> = {
+            poor: FuzzyTip.foodMemberships.poor.fuzzify(foodQuality),
+            avrg: FuzzyTip.foodMemberships.avrg.fuzzify(foodQuality),
+            high: FuzzyTip.foodMemberships.high.fuzzify(foodQuality)
+        }
+
+        const fuzzyService: Record<Quality, number> = {
+            poor: FuzzyTip.foodMemberships.poor.fuzzify(serviceQuality),
+            avrg: FuzzyTip.foodMemberships.avrg.fuzzify(serviceQuality),
+            high: FuzzyTip.foodMemberships.high.fuzzify(serviceQuality)
+        }
+        
         return percentage
     }
 }

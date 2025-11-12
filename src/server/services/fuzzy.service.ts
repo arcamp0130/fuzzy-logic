@@ -37,7 +37,7 @@ export class FuzzyTip {
         ]
     }
 
-    public calculate(): number {
+    public calculate(foodQuality: number, serviceQuality: number): number {
         let percentage = 15.7 // Mock
 
         return percentage

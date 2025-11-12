@@ -1,5 +1,4 @@
 import type { FuzzyRule, MembershipFunc, Quality } from "../types/fuzzy.types.ts"
-import { FuzzyFunction } from "es6-fuzz/lib/curve/fuzzy-function.js"
 import shapes from "../components/fuzzy.shapes.ts"
 
 export class FuzzyTip {
@@ -10,19 +9,19 @@ export class FuzzyTip {
 
     constructor() {
         FuzzyTip.foodMemberships = { // Empty
-            poor: new shapes.Trapezoid(0, 0, 1.5, 4),
+            poor: new shapes.Trapezoid(-0.1, 0, 1.5, 4),
             avrg: new shapes.Trapezoid(2.5, 4, 7, 8.5),
-            high: new shapes.Sigmoid(8.75, 1.25),
+            high: new shapes.Trapezoid(7.5, 8.5, 10, 10.1),
         }
         FuzzyTip.serviceMemberships = { //Empty
-            poor: new shapes.Trapezoid(0, 0, 3.5, 5.5),
+            poor: new shapes.Trapezoid(-0.1, 0, 3.5, 5.5),
             avrg: new shapes.Trapezoid(4, 5.5, 8, 9),
-            high: new shapes.Sigmoid(9, 1)
+            high: new shapes.Trapezoid(8, 9, 10, 10.1),
         }
         FuzzyTip.tipMemberships = { //Empty
-            poor: new shapes.Trapezoid(0, 0, 1, 2.5),
-            avrg: new shapes.Trapezoid(0, 0, 0, 0),
-            high: new shapes.Sigmoid(8.75, 1.25),
+            poor: new shapes.Trapezoid(-0.1, 0, 1, 2.5),
+            avrg: new shapes.Trapezoid(0.5, 2.5, 7.5, 9),
+            high: new shapes.Trapezoid(7.5, 8.5, 10, 10.1),
         }
 
         FuzzyTip.rules = [
@@ -48,11 +47,11 @@ export class FuzzyTip {
         }
 
         const fuzzyService: Record<Quality, number> = {
-            poor: FuzzyTip.foodMemberships.poor.fuzzify(serviceQuality),
-            avrg: FuzzyTip.foodMemberships.avrg.fuzzify(serviceQuality),
-            high: FuzzyTip.foodMemberships.high.fuzzify(serviceQuality)
+            poor: FuzzyTip.serviceMemberships.poor.fuzzify(serviceQuality),
+            avrg: FuzzyTip.serviceMemberships.avrg.fuzzify(serviceQuality),
+            high: FuzzyTip.serviceMemberships.high.fuzzify(serviceQuality)
         }
-        
+
         return percentage
     }
 }

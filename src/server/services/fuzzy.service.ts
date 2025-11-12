@@ -1,5 +1,7 @@
 import type { FuzzyRule, MembershipFunc, Quality } from "../types/fuzzy.types.ts"
 import shapes from "../components/fuzzy.shapes.ts"
+import { Logic } from "es6-fuzz"
+import type { Shape } from "es6-fuzz/lib/curve/shape"
 
 export class FuzzyTip {
     private static foodMemberships: Record<Quality, MembershipFunc>
@@ -8,37 +10,39 @@ export class FuzzyTip {
     private static rules: Array<FuzzyRule> = []
 
     constructor() {
-        FuzzyTip.foodMemberships = { // Empty
+        FuzzyTip.foodMemberships = {
             poor: new shapes.Trapezoid(-0.1, 0, 1.5, 4),
             avrg: new shapes.Trapezoid(2.5, 4, 7, 8.5),
             high: new shapes.Trapezoid(7.5, 8.5, 10, 10.1),
         }
-        FuzzyTip.serviceMemberships = { //Empty
+        FuzzyTip.serviceMemberships = {
             poor: new shapes.Trapezoid(-0.1, 0, 3.5, 5.5),
             avrg: new shapes.Trapezoid(4, 5.5, 8, 9),
             high: new shapes.Trapezoid(8, 9, 10, 10.1),
         }
-        FuzzyTip.tipMemberships = { //Empty
-            poor: new shapes.Trapezoid(-0.1, 0, 1, 2.5),
-            avrg: new shapes.Trapezoid(0.5, 2.5, 7.5, 9),
-            high: new shapes.Trapezoid(7.5, 8.5, 10, 10.1),
+        FuzzyTip.tipMemberships = {
+            poor: new shapes.Constant(3),
+            avrg: new shapes.Constant(5),
+            high: new shapes.Constant(9),
         }
 
         FuzzyTip.rules = [
-            { food: 'poor', service: 'poor', tip: 'poor', description: 'Poor food and poor service → poor tip' },
-            { food: 'poor', service: 'avrg', tip: 'poor', description: 'Poor food and average service → poor tip' },
-            { food: 'poor', service: 'high', tip: 'avrg', description: 'Poor food but high service → avrg tip' },
-            { food: 'avrg', service: 'poor', tip: 'poor', description: 'Average food and poor service → poor tip' },
-            { food: 'avrg', service: 'avrg', tip: 'avrg', description: 'Average food and average service → avrg tip' },
-            { food: 'avrg', service: 'high', tip: 'avrg', description: 'Average food and high service → avrg tip' },
-            { food: 'high', service: 'poor', tip: 'poor', description: 'high food but poor service → poor tip' },
-            { food: 'high', service: 'avrg', tip: 'avrg', description: 'high food and average service → avrg tip' },
-            { food: 'high', service: 'high', tip: 'high', description: 'high food and high service → high tip' }
+            { id: 0, food: 'poor', service: 'poor', tip: 'poor', description: 'Poor food and poor service → poor tip' },
+            { id: 1, food: 'poor', service: 'avrg', tip: 'poor', description: 'Poor food and average service → poor tip' },
+            { id: 2, food: 'poor', service: 'high', tip: 'avrg', description: 'Poor food but high service → avrg tip' },
+            { id: 3, food: 'avrg', service: 'poor', tip: 'poor', description: 'Average food and poor service → poor tip' },
+            { id: 4, food: 'avrg', service: 'avrg', tip: 'avrg', description: 'Average food and average service → avrg tip' },
+            { id: 5, food: 'avrg', service: 'high', tip: 'avrg', description: 'Average food and high service → avrg tip' },
+            { id: 6, food: 'high', service: 'poor', tip: 'poor', description: 'high food but poor service → poor tip' },
+            { id: 7, food: 'high', service: 'avrg', tip: 'avrg', description: 'high food and average service → avrg tip' },
+            { id: 8, food: 'high', service: 'high', tip: 'high', description: 'high food and high service → high tip' }
         ]
     }
 
     public calculate(foodQuality: number, serviceQuality: number): number {
         let percentage = 15.7 // Mock
+
+        // Using sugeno model to apply fuzzy implication
 
         const fuzzyFood: Record<Quality, number> = {
             poor: FuzzyTip.foodMemberships.poor.fuzzify(foodQuality),
@@ -51,6 +55,23 @@ export class FuzzyTip {
             avrg: FuzzyTip.serviceMemberships.avrg.fuzzify(serviceQuality),
             high: FuzzyTip.serviceMemberships.high.fuzzify(serviceQuality)
         }
+
+        const fuzzyAntecedent = FuzzyTip.rules.map((rule) => {
+            return {
+                tip: rule.tip,
+                value: Math.min(
+                    fuzzyFood[rule.food],
+                    fuzzyService[rule.service],
+                )
+            }
+        })
+
+        const fuzzyConsequent: Array<number> = fuzzyAntecedent.map((rule) =>
+            // Using 0 at fuzzify since argument value actually doesn't matter
+            FuzzyTip.tipMemberships[rule.tip].fuzzify(0) * rule.value
+        )
+
+        console.debug(fuzzyAntecedent)
 
         return percentage
     }

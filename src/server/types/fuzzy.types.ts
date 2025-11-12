@@ -1,6 +1,6 @@
-import { Shape } from "es6-fuzz/lib/curve/shape"
-import { Sigmoid } from "es6-fuzz/lib/curve/sigmoid"
-import { Constant } from "es6-fuzz/lib/curve/constant"
+import { Shape } from "es6-fuzz/lib/curve/shape.js"
+import { Sigmoid } from "es6-fuzz/lib/curve/sigmoid.js"
+import { Constant } from "es6-fuzz/lib/curve/constant.js"
 
 export type Quality = 'poor' | 'avrg' | 'high'
 
@@ -11,4 +11,4 @@ export interface FuzzyRule {
     service: Quality,
     tip: Quality,
     description: string
-} 
+}

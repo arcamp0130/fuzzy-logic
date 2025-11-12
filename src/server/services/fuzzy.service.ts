@@ -1,4 +1,4 @@
-import { FuzzyRule, MembershipFunc, Quality } from "../types/fuzzy.types.ts"
+import type { FuzzyRule, MembershipFunc, Quality } from "../types/fuzzy.types.ts"
 import shapes from "../components/fuzzy.shapes.ts"
 
 export class FuzzyTip {

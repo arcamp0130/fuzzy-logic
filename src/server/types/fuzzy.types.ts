@@ -5,3 +5,10 @@ import { Constant } from "es6-fuzz/lib/curve/constant"
 export type Quality = 'poor' | 'avrg' | 'high'
 
 export type MembershipFunc = Shape | Constant | Sigmoid
+
+export interface FuzzyRule {
+    food: Quality,
+    service: Quality,
+    tip: Quality,
+    description: string
+} 

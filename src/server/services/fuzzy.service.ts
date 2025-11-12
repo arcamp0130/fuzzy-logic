@@ -9,19 +9,19 @@ export class FuzzyTip {
 
     constructor() {
         FuzzyTip.foodMemberships = { // Empty
-            poor: new shapes.Triangle(0, 0, 0, 0),
-            avrg: new shapes.Trapezoid(0, 0, 0, 0),
-            high: new shapes.Sigmoid(0, 0),
+            poor: new shapes.Trapezoid(0, 0, 1.5, 4),
+            avrg: new shapes.Trapezoid(2.5, 4, 7, 8.5),
+            high: new shapes.Sigmoid(8.75, 1.25),
         }
         FuzzyTip.serviceMemberships = { //Empty
-            poor: new shapes.Triangle(0, 0, 0, 0),
-            avrg: new shapes.Trapezoid(0, 0, 0, 0),
-            high: new shapes.Sigmoid(0, 0)
+            poor: new shapes.Trapezoid(0, 0, 3.5, 5.5),
+            avrg: new shapes.Trapezoid(4, 5.5, 8, 9),
+            high: new shapes.Sigmoid(9, 1)
         }
         FuzzyTip.tipMemberships = { //Empty
-            poor: new shapes.Triangle(0, 0, 0, 0),
+            poor: new shapes.Trapezoid(0, 0, 1, 2.5),
             avrg: new shapes.Trapezoid(0, 0, 0, 0),
-            high: new shapes.Sigmoid(0, 0)
+            high: new shapes.Sigmoid(8.75, 1.25),
         }
 
         FuzzyTip.rules = [

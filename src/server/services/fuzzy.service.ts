@@ -70,16 +70,23 @@ export class FuzzyTip {
             FuzzyTip.tipMemberships[rule.tip].fuzzify(0) * rule.value
         )
 
-        const antecedentSum: number = fuzzyAntecedent.map((index) => index.value)
-            .reduce((acumulator, currrent) => acumulator + currrent)
+        const antecedentSum: number = fuzzyAntecedent
+            .map((index) => index.value)
+            .reduce((acumulator, currrent) => acumulator + currrent, 0)
+
+        // If no rule fired, return 0 (or a sensible default)
+        if (antecedentSum === 0) {
+            return 0
+        }
 
         const consequentSum: number = fuzzyConsequent
-            .reduce((acumulator, currrent) => acumulator + currrent)
+            .reduce((acumulator, currrent) => acumulator + currrent, 0)
 
         const defuzzed: number = (consequentSum / antecedentSum)
 
         // Divided by 10 since defuzzed output represents a grade
-        // from 0 to 10 (out of 10) to decide final percentage
+        // from 0 to 10 (out of 10) to decide final percentage,
+        // so we got an 0 to 1 value to multiply by given percentage.
         return maxTipPercentage * (defuzzed / 10)
     }
 }

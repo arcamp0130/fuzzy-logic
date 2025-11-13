@@ -84,9 +84,15 @@ export class FuzzyTip {
 
         const defuzzed: number = (consequentSum / antecedentSum)
 
-        // Divided by 10 since defuzzed output represents a grade
-        // from 0 to 10 (out of 10) to decide final percentage,
+        // 'deffuzed' is divided by 10 since defuzzed output represents
+        // a grade from 0 to 10 (out of 10) to decide final percentage,
         // so we got an 0 to 1 value to multiply by given percentage.
-        return maxTipPercentage * (defuzzed / 10)
+
+        const factor: number = 10 ** 2 //two decimal places
+        const finalPercentage: number = Math.round(
+            maxTipPercentage * (defuzzed / 10) * factor
+        ) / factor
+
+        return finalPercentage
     }
 }

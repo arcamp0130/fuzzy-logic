@@ -49,6 +49,11 @@ form {
     }
 }
 
+.alert {
+    margin: 2rem auto 0;
+    font-size: 0.8rem;
+}
+
 .views {
     display: grid;
     grid-template-columns: 3fr 2fr;

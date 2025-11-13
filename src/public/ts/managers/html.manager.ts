@@ -45,7 +45,78 @@ export class HTMLManager {
     }
 
     private async submit(): Promise<void> {
-        console.log("async submit")
+        this.alert.innerHTML = ""
+
+        const foodStr = this.inputs['food-quality'].value
+        const serviceStr = this.inputs['service-quality'].value
+        const maxTipStr = this.inputs['max-tip'].value
+        const billStr = this.inputs['bill'].value || '0'
+
+        // Safety check
+        if (foodStr == null || serviceStr == null || maxTipStr == null) {
+            this.alert.innerHTML = 'Missing input(s)'
+            return
+        }
+
+        const food = parseFloat(String(foodStr))
+        const service = parseFloat(String(serviceStr))
+        const maxTip = parseFloat(String(maxTipStr))
+        const bill = parseFloat(String(billStr))
+
+        // Safety check
+        if (Number.isNaN(food) || Number.isNaN(service) || Number.isNaN(maxTip) || Number.isNaN(bill)) {
+            this.alert.innerHTML = 'All inputs must be numeric'
+            return
+        }
+
+        // disable submit button
+        const submitBtn = this.buttons['submit']
+        submitBtn.disabled = true
+        const previousLabel = submitBtn.innerText
+        submitBtn.innerText = 'Calculating...'
+
+        try {
+            // Calling API
+            // TODO: safe import of port from .env
+            const resp = await fetch(new URL("http://localhost:3030/api/tip/calculate"), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    foodQuality: food,
+                    serviceQuality: service,
+                    maxTipPercentage: maxTip
+                })
+            })
+
+            // Extracting JSON from server response
+            const json = await resp.json().catch(() => ({}))
+
+            if (!resp.ok) {
+                this.alert.innerHTML = json?.message || json?.error || 'Server error'
+                return
+            }
+
+            // Safety check for json.tip, expecting a number
+            const tipPercent = Number(json?.tip ?? 0)
+
+            if (isNaN(tipPercent)) {
+                this.alert.innerHTML = 'Invalid tip returned from server'
+                return
+            }
+
+            // Calculating final payments based on bill
+            const tipAmount = (bill * tipPercent) / 100
+            const finalBill = bill + tipAmount
+
+            this.outputs['final-tip-percentage'].innerHTML = `${tipPercent.toFixed(2)}%`
+            this.outputs['tip-amount'].innerHTML = `$${tipAmount.toFixed(2)}`
+            this.outputs['final-bill'].innerHTML = `$${finalBill.toFixed(2)}`
+        } catch (err: any) {
+            this.alert.innerHTML = err?.message || String(err)
+        } finally {
+            submitBtn.disabled = false
+            submitBtn.innerText = previousLabel
+        }
     }
 
     private addListeners(): void {

@@ -33,8 +33,30 @@ main {
 
 .views {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 3fr 2fr;
     gap: 1rem;
+}
+
+.results.view {
+    .result {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        span {
+            text-align: center;
+
+            &.minor {
+                font-size: 0.8rem;
+            }
+
+            &.major {
+                font-size: 2rem;
+                font-weight: bold;
+            }
+        }
+
+    }
 }
 
 .controls {
@@ -53,6 +75,11 @@ main {
 h1 {
     margin: 0;
     text-align: center;
+}
+
+hr {
+    margin: 2rem 5rem;
+    border: 1px solid color-scheme.$stroke-color;
 }
 
 button {

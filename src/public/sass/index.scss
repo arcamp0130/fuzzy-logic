@@ -1,9 +1,74 @@
 @use 'color-scheme';
+$font-family: "Noto Sans", sans-serif;
 
 * {
-    color: color-scheme.$foreground-color
+    color: color-scheme.$foreground-color;
+    font-family: $font-family;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
 }
 
 body {
-    background-color: color-scheme.$primary-color
+    background-color: color-scheme.$primary-color;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    background-color: color-scheme.$secondary-color;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem;
+    gap: 1rem
+}
+
+.views {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .buttons.container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        min-width: 5rem;
+        gap: 1rem;
+    }
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+button {
+    min-width: 6rem;
+    background-color: color-scheme.$secondary-color;
+    border: 1px solid color-scheme.$stroke-color;
+    transition: 200ms;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        background-color: color-scheme.$hover-color;
+        transition: 200ms;
+    }
+
+    &:disabled {
+        background-color: color-scheme.$disabled-color;
+    }
 }

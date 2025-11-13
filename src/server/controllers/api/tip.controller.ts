@@ -56,7 +56,7 @@ export const calculateTip = (req: e.Request, res: e.Response): void => {
         const result = fuzzyTip.calculate(food, service, maxTip)
         res.status(200).json({
             status: "success",
-            message: "Calculating tip!",
+            message: "Fuzzy inference completed.",
             tip: result
         })
     } catch (error: any) {

@@ -1,7 +1,5 @@
 import type { FuzzyRule, MembershipFunc, Quality } from "../types/fuzzy.types.ts"
 import shapes from "../components/fuzzy.shapes.ts"
-import { Logic } from "es6-fuzz"
-import type { Shape } from "es6-fuzz/lib/curve/shape"
 
 export class FuzzyTip {
     private static foodMemberships: Record<Quality, MembershipFunc>
@@ -10,6 +8,8 @@ export class FuzzyTip {
     private static rules: Array<FuzzyRule> = []
 
     constructor() {
+        // using +/- 0.1 offset to ensure correct membership functions
+        // due to 'es6-fuzz' library ambiguities and issues
         FuzzyTip.foodMemberships = {
             poor: new shapes.Trapezoid(-0.1, 0, 1.5, 4),
             avrg: new shapes.Trapezoid(2.5, 4, 7, 8.5),

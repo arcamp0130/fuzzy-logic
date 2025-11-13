@@ -1,3 +1,5 @@
 import '@sass/index.scss'
+import { HTMLManager } from './managers/html.manager'
 
-console.log("Hello from client!")
+// Forcing to instance class
+HTMLManager.Instance

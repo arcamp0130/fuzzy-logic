@@ -17,9 +17,9 @@ export const calculateTip = (req: e.Request, res: e.Response): void => {
         return
     }
 
-    const { foodQuality, serviceQuality } = req.body
+    const { foodQuality, serviceQuality, maxTipPercentage } = req.body
 
-    if (!foodQuality || !serviceQuality) {
+    if (!foodQuality || !serviceQuality || !maxTipPercentage) {
         res.status(400).json({
             status: "failure",
             error: "Missing data",
@@ -30,8 +30,9 @@ export const calculateTip = (req: e.Request, res: e.Response): void => {
 
     const food: number = parseFloat(foodQuality)
     const service: number = parseFloat(serviceQuality)
+    const maxTip: number = parseFloat(maxTipPercentage)
 
-    if (isNaN(food) || isNaN(food)) {
+    if (isNaN(food) || isNaN(food) || isNaN(maxTip)) {
         res.status(400).json({
             status: "failure",
             error: "Invalid input",
@@ -39,17 +40,19 @@ export const calculateTip = (req: e.Request, res: e.Response): void => {
         })
     }
 
-    if (food < 0 || food > 10 || service < 0 || service > 10) {
+    if (food < 0 || food > 10 ||
+        service < 0 || service > 10||
+        maxTip < 0 || maxTip > 100) {
         res.status(400).json({
             status: "failure",
             error: "Out of range",
-            message: "Both values must be between 0 and 10",
+            message: "'Food' and 'Service' quality must be a 0-10 value, and 'Max tip' a 1-100 (%) value",
         })
         return
     }
 
     try {
-        const result = fuzzyTip.calculate(foodQuality, serviceQuality)
+        const result = fuzzyTip.calculate(foodQuality, serviceQuality, maxTip)
         res.status(200).json({
             status: "success",
             message: "Calculating tip!",

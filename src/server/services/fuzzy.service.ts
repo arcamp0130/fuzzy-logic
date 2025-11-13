@@ -39,8 +39,7 @@ export class FuzzyTip {
         ]
     }
 
-    public calculate(foodQuality: number, serviceQuality: number): number {
-        let percentage = 15.7 // Mock
+    public calculate(foodQuality: number, serviceQuality: number, maxTipPercentage: number): number {
 
         // Using sugeno model to apply fuzzy implication
 
@@ -79,8 +78,8 @@ export class FuzzyTip {
 
         const defuzzed: number = (consequentSum / antecedentSum)
 
-        console.debug(defuzzed)
-
-        return percentage
+        // Divided by 10 since defuzzed output represents a grade
+        // from 0 to 10 (out of 10) to decide final percentage
+        return maxTipPercentage * (defuzzed / 10)
     }
 }

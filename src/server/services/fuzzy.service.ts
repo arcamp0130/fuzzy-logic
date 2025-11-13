@@ -21,9 +21,9 @@ export class FuzzyTip {
             high: new shapes.Trapezoid(8, 9, 10, 10.1),
         }
         FuzzyTip.tipMemberships = {
-            poor: new shapes.Constant(3),
+            poor: new shapes.Constant(0),
             avrg: new shapes.Constant(5),
-            high: new shapes.Constant(9),
+            high: new shapes.Constant(10),
         }
 
         FuzzyTip.rules = [
@@ -71,7 +71,15 @@ export class FuzzyTip {
             FuzzyTip.tipMemberships[rule.tip].fuzzify(0) * rule.value
         )
 
-        console.debug(fuzzyAntecedent)
+        const antecedentSum: number = fuzzyAntecedent.map((index) => index.value)
+            .reduce((acumulator, currrent) => acumulator + currrent)
+
+        const consequentSum: number = fuzzyConsequent
+            .reduce((acumulator, currrent) => acumulator + currrent)
+
+        const defuzzed: number = (consequentSum / antecedentSum)
+
+        console.debug(defuzzed)
 
         return percentage
     }
